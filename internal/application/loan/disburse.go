@@ -6,6 +6,6 @@ import (
 	"github.com/Gash21/amartha-test/internal/shared/helper"
 )
 
-func (u *Usecase) Disbursed() helper.JSONResult {
+func (u *Usecase) Disburse() helper.JSONResult {
 	return helper.ResponseSuccess(http.StatusOK, "Loan disbursed successfully")
 }

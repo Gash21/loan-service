@@ -13,9 +13,3 @@ type Instance struct {
 	Validator validator.IValidatorService
 	Logger    *zap.Logger
 }
-
-type Dependency struct {
-	DB        *database.Database
-	Validator validator.IValidatorService
-	Logger    *zap.Logger
-}

@@ -1,7 +1,7 @@
 package loan
 
 import (
-	"github.com/Gash21/amartha-test/internal/domain/loan"
+	"github.com/Gash21/amartha-test/internal/application/loan"
 	documentRepository "github.com/Gash21/amartha-test/internal/infrastructure/document"
 	loanRepository "github.com/Gash21/amartha-test/internal/infrastructure/loan"
 	"github.com/Gash21/amartha-test/internal/shared/validator"
@@ -35,11 +35,11 @@ func RegisterAPI(d *deps.Instance) *Handler {
 	h := NewHandler(d)
 
 	g := d.Fiber.Group("/api/v1/loans")
-
-	g.Get("/", h.Propose)
-	g.Post("/", h.Approved)
-	g.Post("/", h.Invested)
-	g.Post("/", h.Disbursed)
+	g.Get("/", h.List)
+	g.Post("/propose", h.Propose)
+	g.Patch("/:id/approve", h.Approve)
+	g.Patch("/:id/invest", h.Invest)
+	g.Patch("/:id/disburse", h.Disburse)
 
 	return h
 }

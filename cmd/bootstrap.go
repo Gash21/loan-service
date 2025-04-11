@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func BootstrapApp(dep *deps.Dependency) *deps.Instance {
+func BootstrapApp(dep *deps.Instance) *deps.Instance {
 
 	e := fiber.New(fiber.Config{
 		DisableStartupMessage: true,

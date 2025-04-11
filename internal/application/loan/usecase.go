@@ -1,8 +1,8 @@
 package loan
 
 import (
-	"github.com/Gash21/amartha-test/internal/application/document"
-	"github.com/Gash21/amartha-test/internal/application/loan"
+	"github.com/Gash21/amartha-test/internal/domain/document"
+	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/helper"
 	"go.uber.org/zap"
 )
@@ -15,9 +15,9 @@ type (
 	}
 	IUsecase interface {
 		Propose() helper.JSONResult
-		Approved() helper.JSONResult
-		Invested() helper.JSONResult
-		Disbursed() helper.JSONResult
+		Approve() helper.JSONResult
+		Invest() helper.JSONResult
+		Disburse() helper.JSONResult
 	}
 )
 

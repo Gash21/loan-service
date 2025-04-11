@@ -2,7 +2,7 @@ package loan
 
 type LoanRepository interface {
 	ProposeLoan() Loan
-	ApprovedLoan() Loan
-	InvestedLoan() Loan
-	DisbursedLoan() Loan
+	ApproveLoan() Loan
+	InvesteLoan() Loan
+	DisburseLoan() Loan
 }

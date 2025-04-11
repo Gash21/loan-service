@@ -1,7 +1,7 @@
 package loan
 
 import (
-	"github.com/Gash21/amartha-test/internal/application/loan"
+	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/database"
 	"gorm.io/gorm"
 )
@@ -18,14 +18,14 @@ func (r *Repository) ProposeLoan() loan.Loan {
 	return loan.Loan{}
 }
 
-func (r *Repository) ApprovedLoan() loan.Loan {
+func (r *Repository) ApproveLoan() loan.Loan {
 	return loan.Loan{}
 }
 
-func (r *Repository) InvestedLoan() loan.Loan {
+func (r *Repository) InvesteLoan() loan.Loan {
 	return loan.Loan{}
 }
 
-func (r *Repository) DisbursedLoan() loan.Loan {
+func (r *Repository) DisburseLoan() loan.Loan {
 	return loan.Loan{}
 }

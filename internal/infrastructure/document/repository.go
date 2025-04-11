@@ -1,7 +1,7 @@
 package document
 
 import (
-	"github.com/Gash21/amartha-test/internal/application/document"
+	"github.com/Gash21/amartha-test/internal/domain/document"
 	"github.com/Gash21/amartha-test/internal/shared/database"
 	"gorm.io/gorm"
 )
