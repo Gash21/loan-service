@@ -1,6 +1,9 @@
 package loan
 
 import (
+	"context"
+
+	"github.com/Gash21/amartha-test/internal/application/loan/dto"
 	"github.com/Gash21/amartha-test/internal/domain/document"
 	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/helper"
@@ -14,7 +17,7 @@ type (
 		Logger             *zap.Logger
 	}
 	IUsecase interface {
-		Propose() helper.JSONResult
+		Propose(context.Context, dto.ProposedRequest) helper.JSONResult
 		Approve() helper.JSONResult
 		Invest() helper.JSONResult
 		Disburse() helper.JSONResult

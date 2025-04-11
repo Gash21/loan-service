@@ -3,10 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/Gash21/amartha-test/internal/domain/borrower"
-	"github.com/Gash21/amartha-test/internal/domain/document"
-	"github.com/Gash21/amartha-test/internal/domain/investor"
-	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/config"
 	"github.com/Gash21/amartha-test/internal/shared/database"
 	"github.com/Gash21/amartha-test/internal/shared/logger"
@@ -35,10 +31,6 @@ func main() {
 		DBName: cfg.DBName,
 	})
 
-	if cfg.AutoMigrate {
-		db.Gorm.AutoMigrate(&loan.Loan{}, &borrower.Borrower{}, &investor.Investor{}, &document.Document{})
-	}
-
 	if err != nil {
 		panic(err)
 	}
@@ -46,6 +38,7 @@ func main() {
 	dep := &deps.Instance{
 		DB:        db,
 		Logger:    l,
+		Config:    cfg,
 		Validator: v,
 	}
 
