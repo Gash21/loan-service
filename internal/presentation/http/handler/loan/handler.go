@@ -2,6 +2,7 @@ package loan
 
 import (
 	"github.com/Gash21/amartha-test/internal/application/loan"
+	borrowerRepository "github.com/Gash21/amartha-test/internal/infrastructure/borrower"
 	documentRepository "github.com/Gash21/amartha-test/internal/infrastructure/document"
 	loanRepository "github.com/Gash21/amartha-test/internal/infrastructure/loan"
 	"github.com/Gash21/amartha-test/internal/shared/validator"
@@ -26,6 +27,7 @@ func NewHandler(deps *deps.Instance) *Handler {
 		Usecase: loan.NewUsecase(loan.Usecase{
 			Logger:             deps.Logger,
 			DocumentRepository: documentRepository.NewRepository(deps.DB),
+			BorrowerRepository: borrowerRepository.NewRepository(deps.DB),
 			LoanRepository:     loanRepository.NewRepository(deps.DB),
 		}),
 	}

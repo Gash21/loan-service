@@ -8,11 +8,13 @@ import (
 )
 
 type Loan struct {
-	ID               int64     `json:"id" gorm:"column:id,primarykey"`
-	BorrowerID       int64     `json:"borrower_id" gorm:"column:borrower_id"`
+	ID               *int64    `json:"id" gorm:"column:id,primarykey;autoIncrement"`
+	BorrowerID       *int64    `json:"borrower_id" gorm:"column:borrower_id"`
+	TotalInvested    float64   `json:"total_invested" gorm:"column:total_invested"`
 	PrincipalAmount  float64   `json:"principal_amount" gorm:"column:principal_amount"`
 	Status           string    `json:"status" gorm:"column:status"`
 	Rate             float64   `json:"rate" gorm:"column:rate"`
+	TotalAmount      float64   `json:"total_amount" gorm:"column:total_amount"`
 	CreatedAt        time.Time `gorm:"column:created_at;autoCreateTime;->;<-:create;" json:"created_at"`
 	UpdatedAt        time.Time `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`
 	BorrowerLetterID int64     `json:"borrower_letter_id" gorm:"column:borrower_letter_id;type:bigint"`
