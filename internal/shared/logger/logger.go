@@ -8,6 +8,10 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+func WithId(log *zap.Logger, contextName string, scopeName string) *zap.Logger {
+	return log.With(zap.String("context", contextName), zap.String("scope", scopeName))
+}
+
 func NewLogger(serviceName, level string) *zap.Logger {
 	syncer := zapcore.AddSync(os.Stdout)
 

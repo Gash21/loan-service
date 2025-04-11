@@ -5,4 +5,6 @@ type GlobalConfig struct {
 	LogLevel    string `mapstructure:"LOG_LEVEL"`
 	Port        int    `mapstructure:"PORT"`
 	ServiceName string `mapstructure:"SERVICE_NAME"`
+	DBName      string `mapstructure:"DB_NAME"`
+	AutoMigrate bool   `mapstructure:"AUTO_MIGRATE"`
 }
