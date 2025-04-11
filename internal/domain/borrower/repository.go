@@ -1,7 +1,7 @@
 package borrower
 
 type BorrowerRepository interface {
-	CreateBorrower(Borrower) Borrower
-	GetBorrowerByName(string) (Borrower, error)
-	GetBorrowerById(string) (Borrower, error)
+	Create(*Borrower) *Borrower
+	FindByName(string) (Borrower, error)
+	FindByID(int64) (Borrower, error)
 }

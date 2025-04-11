@@ -3,9 +3,12 @@ package main
 import (
 	"github.com/Gash21/amartha-test/internal/domain/borrower"
 	"github.com/Gash21/amartha-test/internal/domain/document"
+	"github.com/Gash21/amartha-test/internal/domain/employee"
 	"github.com/Gash21/amartha-test/internal/domain/investor"
 	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/domain/loan_investor"
+	borrowerHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/borrower"
+	employeeHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/employee"
 	loanHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/loan"
 	"github.com/Gash21/amartha-test/pkg/deps"
 	gojson "github.com/goccy/go-json"
@@ -18,6 +21,7 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 	if dep.Config.AutoMigrate {
 		dep.DB.Gorm.AutoMigrate(
 			&loan.Loan{},
+			&employee.Employee{},
 			&borrower.Borrower{},
 			&investor.Investor{},
 			&document.Document{},
@@ -44,6 +48,8 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 	}
 
 	loanHandler.RegisterAPI(instance)
+	borrowerHandler.RegisterAPI(instance)
+	employeeHandler.RegisterAPI(instance)
 
 	return instance
 }

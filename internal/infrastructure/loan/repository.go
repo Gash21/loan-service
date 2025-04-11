@@ -29,7 +29,7 @@ func (r *Repository) FindPaginated(page, limit int) ([]loan.Loan, int64) {
 	return loans, total
 }
 
-func (r *Repository) Create(l loan.Loan) loan.Loan {
+func (r *Repository) Create(l *loan.Loan) *loan.Loan {
 	r.db.Create(&l)
 	return l
 }

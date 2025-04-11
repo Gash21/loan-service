@@ -14,6 +14,6 @@ func NewRepository(db *database.Database) document.DocumentRepository {
 	return &Repository{db: db.Gorm}
 }
 
-func (r *Repository) CreateDocument(document *document.Document) error {
+func (r *Repository) Create(document *document.Document) error {
 	return nil
 }
