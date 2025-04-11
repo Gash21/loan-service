@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Gash21/amartha-test/internal/presentation/http/handler/loan"
 	"github.com/Gash21/amartha-test/pkg/deps"
 	gojson "github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
@@ -24,6 +25,8 @@ func BootstrapApp(dep *deps.Dependency) *deps.Instance {
 		Fiber: e,
 		DB:    dep.DB,
 	}
+
+	loan.RegisterAPI(instance)
 
 	return instance
 }
