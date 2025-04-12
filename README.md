@@ -8,12 +8,16 @@ I have 11 years of experience in software development, and I have worked in vari
 Here's my CV: [Download Here](https://drive.google.com/file/d/1qzRJaBjWEieonfmAEyoj4VavMcDkh9ol/view?usp=sharing)
 
 For your information, this code is created from scratch using Fiber as the framework and SQLite as the database.
-I learn many things when creating this code. I'm trying to implement DDD (Domain Driven Design) pattern and SOLID principles as far as I can.
-I know this codebase is not perfect, but I'm trying my best.
+I learn many things when creating this code. I'm trying to implement DDD (Domain Driven Design) pattern and SOLID principles as much as possible.
+I know this codebase is far from perfect, but I'm trying my best.
 
 Please check and try the code. Have fun :D
 
 Thank you so much for your attention :)
+
+## Postman Collection
+
+For testing convenience, let me share the Postman collection [Postman Collection](https://documenter.getpostman.com/view/40920794/2sB2cYeLjo#f9d9f064-e155-4c59-8a6f-fd2c4329bcad)
 
 ## How To Run
 
