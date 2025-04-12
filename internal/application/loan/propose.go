@@ -32,9 +32,6 @@ func (u *Usecase) Propose(ctx context.Context, req *dto.ProposedRequest) helper.
 		l.Error("failed to create loan", zap.Error(err))
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to create loan", nil)
 	}
-	resp := dto.ProposeResponse{
-		LoanID: *loan.ID,
-	}
 
-	return helper.ResponseSuccess(http.StatusOK, resp)
+	return helper.ResponseSuccess(http.StatusOK, loan)
 }
