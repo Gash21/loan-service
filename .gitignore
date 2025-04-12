@@ -85,3 +85,4 @@ report-file-*
 
 .env
 .DS_Store
+uploads/*
