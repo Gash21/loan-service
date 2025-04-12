@@ -12,7 +12,7 @@ type Investor struct {
 	CreatedAt time.Time `gorm:"column:created_at;autoCreateTime;->;<-:create;" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`
 
-	LoanInvestors []loan_investor.LoanInvestor `gorm:"foreignKey:InvestorID;references:ID" json:"loan_investors"`
+	LoanInvestors []*loan_investor.LoanInvestor `gorm:"foreignKey:InvestorID;references:ID" json:"loan_investors"`
 }
 
 func (Investor) TableName() string {

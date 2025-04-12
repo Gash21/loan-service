@@ -25,8 +25,8 @@ func (r *Repository) FindByName(name string) (investor.Investor, error) {
 	return m, err.Error
 }
 
-func (r *Repository) FindByID(id int64) (investor.Investor, error) {
+func (r *Repository) FindByID(id *int64) (*investor.Investor, error) {
 	var m investor.Investor
 	err := r.db.Where("id = ?", id).First(&m)
-	return m, err.Error
+	return &m, err.Error
 }

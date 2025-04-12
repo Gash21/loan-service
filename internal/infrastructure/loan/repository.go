@@ -51,6 +51,18 @@ func (r *Repository) FindByIDAndStatus(id *int64, status string) (*loan.Loan, er
 	return &data, nil
 }
 
+func (r *Repository) FindInvestableLoanByID(id *int64) (*loan.Loan, error) {
+	var data loan.Loan
+	tableName := loan.Loan{}.TableName()
+	availableStatuses := []string{"approved", "invested"}
+
+	err := r.db.Table(tableName).Where("id = ?", id).Preload("LoanInvestors").Where("status IN ?", availableStatuses).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
 func (r *Repository) Create(l *loan.Loan) (*loan.Loan, error) {
 	tx := r.db.Create(&l)
 	if tx.Error != nil {

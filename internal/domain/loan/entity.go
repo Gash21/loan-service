@@ -25,7 +25,7 @@ type Loan struct {
 
 	Approver      *employee.Employee            `gorm:"foreignKey:ApprovedBy;references:ID" json:"approver,omitempty"`
 	Borrower      *borrower.Borrower            `gorm:"foreignKey:BorrowerID;references:ID" json:"borrower,omitempty"`
-	LoanInvestors *[]loan_investor.LoanInvestor `gorm:"foreignKey:LoanID;references:ID" json:"investors,omitempty"`
+	LoanInvestors []*loan_investor.LoanInvestor `gorm:"foreignKey:LoanID;references:ID" json:"investors,omitempty"`
 }
 
 func (Loan) TableName() string {

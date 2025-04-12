@@ -16,6 +16,6 @@ func (h *Handler) List(c *fiber.Ctx) error {
 		return c.Status(err.Code).JSON(err.ResponseBody)
 	}
 
-	uc := h.Usecase.List(c.UserContext(), *req)
+	uc := h.Usecase.List(c.UserContext(), req)
 	return c.Status(uc.Code).JSON(uc)
 }

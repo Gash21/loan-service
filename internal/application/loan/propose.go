@@ -11,7 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func (u *Usecase) Propose(ctx context.Context, req dto.ProposedRequest) helper.JSONResult {
+func (u *Usecase) Propose(ctx context.Context, req *dto.ProposedRequest) helper.JSONResult {
 	l := logger.WithId(u.Logger, ContextName, "Propose")
 	debtor, err := u.BorrowerRepository.FindByID(&req.BorrowerID)
 	if err != nil {

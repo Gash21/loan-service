@@ -12,6 +12,6 @@ func (h *Handler) Propose(c *fiber.Ctx) error {
 	if err := helper.BindAndValidateModel(h.Logger, c, h.Validator, req); err != nil {
 		return c.Status(err.Code).JSON(err.ResponseBody)
 	}
-	uc := h.Usecase.Propose(c.UserContext(), *req)
+	uc := h.Usecase.Propose(c.UserContext(), req)
 	return c.Status(uc.Code).JSON(uc)
 }

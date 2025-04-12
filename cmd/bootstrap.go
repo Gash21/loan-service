@@ -8,6 +8,7 @@ import (
 	"github.com/Gash21/amartha-test/internal/domain/loan_investor"
 	borrowerHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/borrower"
 	employeeHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/employee"
+	investorHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/investor"
 	loanHandler "github.com/Gash21/amartha-test/internal/presentation/http/handler/loan"
 	"github.com/Gash21/amartha-test/pkg/deps"
 	gojson "github.com/goccy/go-json"
@@ -49,6 +50,7 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 	loanHandler.RegisterAPI(instance)
 	borrowerHandler.RegisterAPI(instance)
 	employeeHandler.RegisterAPI(instance)
+	investorHandler.RegisterAPI(instance)
 
 	return instance
 }
