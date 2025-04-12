@@ -29,19 +29,40 @@ func (r *Repository) FindPaginated(page, limit int) ([]loan.Loan, int64) {
 	return loans, total
 }
 
-func (r *Repository) Create(l *loan.Loan) *loan.Loan {
-	r.db.Create(&l)
-	return l
+func (r *Repository) FindByID(id *int64) (*loan.Loan, error) {
+	var data loan.Loan
+	tableName := loan.Loan{}.TableName()
+
+	err := r.db.Table(tableName).Where("id = ?", id).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
 }
 
-func (r *Repository) ApproveLoan() loan.Loan {
-	return loan.Loan{}
+func (r *Repository) FindByIDAndStatus(id *int64, status string) (*loan.Loan, error) {
+	var data loan.Loan
+	tableName := loan.Loan{}.TableName()
+
+	err := r.db.Table(tableName).Where("id = ?", id).Where("status = ?", status).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
 }
 
-func (r *Repository) InvesteLoan() loan.Loan {
-	return loan.Loan{}
+func (r *Repository) Create(l *loan.Loan) (*loan.Loan, error) {
+	tx := r.db.Create(&l)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return l, nil
 }
 
-func (r *Repository) DisburseLoan() loan.Loan {
-	return loan.Loan{}
+func (r *Repository) Update(l *loan.Loan) (*loan.Loan, error) {
+	tx := r.db.Save(&l)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return l, nil
 }

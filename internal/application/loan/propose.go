@@ -7,10 +7,13 @@ import (
 	"github.com/Gash21/amartha-test/internal/application/loan/dto"
 	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/helper"
+	"github.com/Gash21/amartha-test/internal/shared/logger"
+	"go.uber.org/zap"
 )
 
 func (u *Usecase) Propose(ctx context.Context, req dto.ProposedRequest) helper.JSONResult {
-	debtor, err := u.BorrowerRepository.FindByID(req.BorrowerID)
+	l := logger.WithId(u.Logger, ContextName, "Propose")
+	debtor, err := u.BorrowerRepository.FindByID(&req.BorrowerID)
 	if err != nil {
 		return helper.ResponseFailed(http.StatusNotFound, "Borrower not found", nil)
 	}
@@ -24,7 +27,11 @@ func (u *Usecase) Propose(ctx context.Context, req dto.ProposedRequest) helper.J
 		TotalAmount:     req.PrincipalAmount + interest,
 	}
 
-	loan := u.LoanRepository.Create(&loanData)
+	loan, err := u.LoanRepository.Create(&loanData)
+	if err != nil {
+		l.Error("failed to create loan", zap.Error(err))
+		return helper.ResponseFailed(http.StatusInternalServerError, "failed to create loan", nil)
+	}
 	resp := dto.ProposeResponse{
 		LoanID: *loan.ID,
 	}

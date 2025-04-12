@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/Gash21/amartha-test/internal/domain/borrower"
-	"github.com/Gash21/amartha-test/internal/domain/document"
 	"github.com/Gash21/amartha-test/internal/domain/employee"
 	"github.com/Gash21/amartha-test/internal/domain/investor"
 	"github.com/Gash21/amartha-test/internal/domain/loan"
@@ -24,7 +23,6 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 			&employee.Employee{},
 			&borrower.Borrower{},
 			&investor.Investor{},
-			&document.Document{},
 			&loan_investor.LoanInvestor{},
 		)
 	}
@@ -38,6 +36,7 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 
 	e.Use(cors.New())
 	e.Use(recover.New())
+	e.Static("/uploads", "./uploads")
 
 	instance := &deps.Instance{
 		Fiber:     e,

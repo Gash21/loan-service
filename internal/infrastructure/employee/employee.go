@@ -25,7 +25,7 @@ func (r *Repository) FindByName(name string) (employee.Employee, error) {
 	return m, err.Error
 }
 
-func (r *Repository) FindByID(id int64) (employee.Employee, error) {
+func (r *Repository) FindByID(id *int64) (employee.Employee, error) {
 	var m employee.Employee
 	err := r.db.Where("id = ?", id).First(&m)
 	return m, err.Error
