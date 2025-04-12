@@ -10,6 +10,6 @@ import (
 func (u *Usecase) List(ctx context.Context, req *dto.ListRequest) helper.JSONResult {
 	loans, total := u.LoanRepository.FindPaginated(req.Page, req.Limit, req.Status)
 	listResponse := &dto.ListResponse{}
-	listResponse = listResponse.FromModel(loans)
+	listResponse = listResponse.FromModel(&u.Config, &loans)
 	return helper.ResponsePagination(req.Page, req.Limit, len(loans), int(total), listResponse.Data)
 }

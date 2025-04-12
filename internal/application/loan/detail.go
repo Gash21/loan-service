@@ -12,14 +12,14 @@ import (
 
 func (u *Usecase) Detail(ctx context.Context, req *dto.DetailRequest) helper.JSONResult {
 	l := logger.WithId(u.Logger, ContextName, "Detail")
-	loan, err := u.LoanRepository.FindByID(&req.ID)
+	loan, err := u.LoanRepository.FindByIDWithLoanInvestor(&req.ID)
 	if err != nil {
 		l.Error("failed to find loan", zap.Error(err))
 		return helper.ResponseFailed(http.StatusNotFound, "Loan not found", nil)
 	}
 
 	res := &dto.DetailResponse{}
-	res = res.FromLoan(loan)
+	res = res.FromModel(&u.Config, loan)
 
 	return helper.ResponseSuccess(http.StatusOK, res)
 }

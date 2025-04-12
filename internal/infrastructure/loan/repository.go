@@ -17,9 +17,8 @@ func NewRepository(db *database.Database) loan.LoanRepository {
 func (r *Repository) FindPaginated(page, limit int, status *string) ([]loan.Loan, int64) {
 	var loans []loan.Loan
 	var total int64
-	tableName := loan.Loan{}.TableName()
 
-	tx := r.db.Table(tableName)
+	tx := r.db
 
 	if status != nil {
 		tx = tx.Where("status = ?", *status)
@@ -27,7 +26,7 @@ func (r *Repository) FindPaginated(page, limit int, status *string) ([]loan.Loan
 
 	tx.Count(&total)
 	tx.Limit(limit).Offset((page - 1) * limit)
-	tx.Find(&loans)
+	tx.Preload("LoanInvestors").Find(&loans)
 
 	if tx.Error != nil {
 		return nil, total
@@ -40,6 +39,17 @@ func (r *Repository) FindByID(id *int64) (*loan.Loan, error) {
 	tableName := loan.Loan{}.TableName()
 
 	err := r.db.Table(tableName).Where("id = ?", id).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
+func (r *Repository) FindByIDWithLoanInvestor(id *int64) (*loan.Loan, error) {
+	var data loan.Loan
+	tableName := loan.Loan{}.TableName()
+
+	err := r.db.Table(tableName).Where("id = ?", id).Preload("LoanInvestors").First(&data).Error
 	if err != nil {
 		return nil, err
 	}
@@ -60,9 +70,9 @@ func (r *Repository) FindByIDAndStatus(id *int64, status string) (*loan.Loan, er
 func (r *Repository) FindInvestableLoanByID(id *int64) (*loan.Loan, error) {
 	var data loan.Loan
 	tableName := loan.Loan{}.TableName()
-	availableStatuses := []string{"approved", "invested"}
 
-	err := r.db.Table(tableName).Where("id = ?", id).Preload("LoanInvestors").Where("status IN ?", availableStatuses).First(&data).Error
+	err := r.db.Table(tableName).Where("id = ?", id).Preload("LoanInvestors").
+		Where("status = ?", "approved").First(&data).Error
 	if err != nil {
 		return nil, err
 	}

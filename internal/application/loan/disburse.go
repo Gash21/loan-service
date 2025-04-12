@@ -16,7 +16,7 @@ import (
 
 func (u *Usecase) Disburse(ctx context.Context, req *dto.DisburseRequest) helper.JSONResult {
 	l := logger.WithId(u.Logger, ContextName, "Disburse")
-	loan, err := u.LoanRepository.FindByIDAndStatus(&req.ID, "ready_to_disbursed")
+	loan, err := u.LoanRepository.FindByIDAndStatus(&req.ID, "invested")
 	if err != nil {
 		l.Error("failed to find loan", zap.Error(err))
 		return helper.ResponseFailed(http.StatusNotFound, "Loan not found", nil)

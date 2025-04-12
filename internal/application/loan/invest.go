@@ -36,7 +36,7 @@ func (u *Usecase) Invest(ctx context.Context, req *dto.InvestRequest) helper.JSO
 
 	loanData.TotalInvested += req.Amount
 	if loanData.PrincipalAmount == loanData.TotalInvested {
-		loanData.Status = "ready_to_disbursed"
+		loanData.Status = "invested"
 	}
 
 	investment := &loan_investor.LoanInvestor{
