@@ -30,6 +30,7 @@ func NewHandler(deps *deps.Instance) *Handler {
 		Config:    deps.Config,
 		Usecase: loan.NewUsecase(loan.Usecase{
 			Logger:             deps.Logger,
+			Mailer:             deps.Mailer,
 			Config:             deps.Config,
 			InvestorRepository: investorRepository.NewRepository(deps.DB),
 			BorrowerRepository: borrowerRepository.NewRepository(deps.DB),

@@ -11,7 +11,8 @@ import (
 
 func (u *Usecase) Create(ctx context.Context, req dto.CreateRequest) helper.JSONResult {
 	investor := u.InvestorRepository.Create(&investor.Investor{
-		Name: req.Name,
+		Name:  req.Name,
+		Email: req.Email,
 	})
 
 	return helper.ResponseSuccess(http.StatusCreated, investor)

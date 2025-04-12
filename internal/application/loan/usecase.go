@@ -10,6 +10,7 @@ import (
 	"github.com/Gash21/amartha-test/internal/domain/loan"
 	"github.com/Gash21/amartha-test/internal/shared/config"
 	"github.com/Gash21/amartha-test/internal/shared/helper"
+	"github.com/Gash21/amartha-test/internal/shared/mailer"
 	"go.uber.org/zap"
 )
 
@@ -22,6 +23,7 @@ type (
 		InvestorRepository investor.InvestorRepository
 		BorrowerRepository borrower.BorrowerRepository
 		Config             config.GlobalConfig
+		Mailer             mailer.IMailerAdapter
 		Logger             *zap.Logger
 	}
 	IUsecase interface {
@@ -41,6 +43,7 @@ func NewUsecase(opts Usecase) IUsecase {
 		BorrowerRepository: opts.BorrowerRepository,
 		EmployeeRepository: opts.EmployeeRepository,
 		Logger:             opts.Logger,
+		Mailer:             opts.Mailer,
 		Config:             opts.Config,
 	}
 }

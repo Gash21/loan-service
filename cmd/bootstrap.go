@@ -45,6 +45,7 @@ func BootstrapApp(dep *deps.Instance) *deps.Instance {
 		Validator: dep.Validator,
 		Config:    dep.Config,
 		DB:        dep.DB,
+		Mailer:    dep.Mailer,
 	}
 
 	loanHandler.RegisterAPI(instance)
