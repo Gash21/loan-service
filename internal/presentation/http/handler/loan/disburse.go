@@ -1,7 +1,36 @@
 package loan
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
+	"time"
+
+	"github.com/Gash21/amartha-test/internal/application/loan/dto"
+	"github.com/Gash21/amartha-test/internal/shared/helper"
+	"github.com/gofiber/fiber/v2"
+)
 
 func (h *Handler) Disburse(c *fiber.Ctx) error {
-	return nil
+	m := &dto.DisburseRequest{}
+	helper.BindModel(h.Logger, c, m)
+
+	// bind files
+	form, _ := c.MultipartForm()
+	files := form.File["evidence"]
+	DateOfDisbursement, err := time.Parse("2006-01-02", m.DateString)
+	if err != nil {
+		perr := helper.ResponseFailed(http.StatusBadRequest, "Invalid date format", nil)
+		return c.Status(perr.Code).JSON(perr)
+	}
+	m.DateOfDisbursement = DateOfDisbursement
+
+	// check if file is uploaded
+	if len(files) == 0 {
+		perr := helper.ResponseFailed(http.StatusBadRequest, "No file uploaded", nil)
+		return c.Status(perr.Code).JSON(perr)
+	}
+
+	m.Evidence = files[0]
+
+	uc := h.Usecase.Disburse(c.UserContext(), m)
+	return c.Status(uc.Code).JSON(uc)
 }

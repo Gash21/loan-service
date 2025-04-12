@@ -29,7 +29,7 @@ func (u *Usecase) Approve(ctx context.Context, req *dto.ApproveRequest) helper.J
 	}
 
 	mimeType := req.Evidence.Header.Get("Content-Type")
-	if !dto.AllowedMIMEs[mimeType] {
+	if !dto.ApproveAllowedMIMEs[mimeType] {
 		l.Error("unsupported file type", zap.String("mimeType", mimeType))
 		return helper.ResponseFailed(http.StatusBadRequest, "Unsupported file type", nil)
 	}

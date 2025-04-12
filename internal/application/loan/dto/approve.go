@@ -13,8 +13,7 @@ type ApproveRequest struct {
 	DateOfApproval time.Time             `form:"-"`
 }
 
-var AllowedMIMEs = map[string]bool{
-	"image/jpeg":      true,
-	"image/png":       true,
-	"application/pdf": true,
+var ApproveAllowedMIMEs = map[string]bool{
+	"image/jpeg": true,
+	"image/png":  true,
 }

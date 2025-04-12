@@ -2,20 +2,38 @@ package config
 
 import (
 	"fmt"
+	"reflect"
 
 	"github.com/spf13/viper"
 )
 
-func Load() (GlobalConfig, error) {
+func Load(configName string) (GlobalConfig, error) {
 	loadDefaults()
 
 	// load from local env
 	viper.AddConfigPath(".")
 	viper.SetConfigType("env")
-	viper.SetConfigName("config")
+	viper.SetConfigName(configName)
 
 	// load from environment variables
 	viper.AutomaticEnv()
+
+	// -- binding environment variables as config source
+	emptyConfig := &GlobalConfig{}
+
+	// count the number of fields (config) on this struct
+	fieldCount := reflect.TypeOf(emptyConfig).Elem().NumField()
+
+	for i := 0; i < fieldCount; i++ {
+		// get the field tag name, for example `mapstructure:"ENV"`
+		field := string(reflect.TypeOf(emptyConfig).Elem().Field(i).Tag)
+
+		// trim the tag and just return the tag name, for example `ENV`
+		// then bind it as env to load to viper config
+		if err := viper.BindEnv(field[14 : len(field)-1]); err != nil {
+			fmt.Println("Error bind env.", err)
+		}
+	}
 
 	// read config from sources (config file and environment variables)
 	if err := viper.ReadInConfig(); err != nil {

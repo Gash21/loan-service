@@ -27,7 +27,7 @@ type (
 		List(context.Context, *dto.ListRequest) helper.JSONResult
 		Approve(context.Context, *dto.ApproveRequest) helper.JSONResult
 		Invest(context.Context, *dto.InvestRequest) helper.JSONResult
-		Disburse() helper.JSONResult
+		Disburse(context.Context, *dto.DisburseRequest) helper.JSONResult
 	}
 )
 
