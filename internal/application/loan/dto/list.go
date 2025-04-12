@@ -3,9 +3,9 @@ package dto
 import "github.com/Gash21/amartha-test/internal/domain/loan"
 
 type ListRequest struct {
-	Page   int    `query:"page"`
-	Limit  int    `query:"limit"`
-	Status string `query:"status"`
+	Page   int     `query:"page"`
+	Limit  int     `query:"limit"`
+	Status *string `query:"status"`
 }
 
 type ListResponse struct {
