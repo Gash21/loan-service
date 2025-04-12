@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Hello, my name is Galih Arghubi, I'm full stack software engineer.
+Hello, my name is Galih Arghubi, I'm Full Stack Software Engineer.
 I have 11 years of experience in software development, and I have worked in various industries, including finance, telecommunications, logistics and etc.
 
 Here's my CV: [Download Here](https://drive.google.com/file/d/1qzRJaBjWEieonfmAEyoj4VavMcDkh9ol/view?usp=sharing)
