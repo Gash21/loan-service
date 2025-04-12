@@ -9,8 +9,10 @@ Here's my CV: [Download Here](https://drive.google.com/file/d/1qzRJaBjWEieonfmAE
 
 For your information, this code is created from scratch using Fiber as the framework and SQLite as the database.
 I learn many things when creating this code. I'm trying to implement DDD (Domain Driven Design) pattern and SOLID principles as far as I can.
+I know this codebase is not perfect, but I'm trying my best.
 
 Please check and try the code. Have fun :D
+Thank you so much for your attention :)
 
 ## How To Run
 
