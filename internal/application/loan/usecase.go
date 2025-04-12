@@ -8,6 +8,7 @@ import (
 	"github.com/Gash21/amartha-test/internal/domain/employee"
 	"github.com/Gash21/amartha-test/internal/domain/investor"
 	"github.com/Gash21/amartha-test/internal/domain/loan"
+	"github.com/Gash21/amartha-test/internal/shared/config"
 	"github.com/Gash21/amartha-test/internal/shared/helper"
 	"go.uber.org/zap"
 )
@@ -20,6 +21,7 @@ type (
 		EmployeeRepository employee.EmployeeRepository
 		InvestorRepository investor.InvestorRepository
 		BorrowerRepository borrower.BorrowerRepository
+		Config             config.GlobalConfig
 		Logger             *zap.Logger
 	}
 	IUsecase interface {
@@ -28,6 +30,7 @@ type (
 		Approve(context.Context, *dto.ApproveRequest) helper.JSONResult
 		Invest(context.Context, *dto.InvestRequest) helper.JSONResult
 		Disburse(context.Context, *dto.DisburseRequest) helper.JSONResult
+		Detail(context.Context, *dto.DetailRequest) helper.JSONResult
 	}
 )
 
@@ -38,5 +41,6 @@ func NewUsecase(opts Usecase) IUsecase {
 		BorrowerRepository: opts.BorrowerRepository,
 		EmployeeRepository: opts.EmployeeRepository,
 		Logger:             opts.Logger,
+		Config:             opts.Config,
 	}
 }

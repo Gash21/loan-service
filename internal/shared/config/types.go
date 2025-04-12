@@ -7,4 +7,5 @@ type GlobalConfig struct {
 	ServiceName string `mapstructure:"SERVICE_NAME"`
 	DBName      string `mapstructure:"DB_NAME"`
 	AutoMigrate bool   `mapstructure:"AUTO_MIGRATE"`
+	PublicURL   string `mapstructure:"PUBLIC_URL"`
 }

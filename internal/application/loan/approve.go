@@ -64,5 +64,5 @@ func (u *Usecase) Approve(ctx context.Context, req *dto.ApproveRequest) helper.J
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to update loan", nil)
 	}
 
-	return helper.ResponseSuccess(http.StatusOK, loan)
+	return helper.ResponseSuccess(http.StatusOK, dto.ApproveSuccessResponse)
 }

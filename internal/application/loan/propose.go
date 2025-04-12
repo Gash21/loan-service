@@ -27,11 +27,11 @@ func (u *Usecase) Propose(ctx context.Context, req *dto.ProposedRequest) helper.
 		TotalAmount:     req.PrincipalAmount + interest,
 	}
 
-	loan, err := u.LoanRepository.Create(&loanData)
+	_, err = u.LoanRepository.Create(&loanData)
 	if err != nil {
 		l.Error("failed to create loan", zap.Error(err))
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to create loan", nil)
 	}
 
-	return helper.ResponseSuccess(http.StatusOK, loan)
+	return helper.ResponseSuccess(http.StatusOK, dto.ProposeSuccessResponse)
 }

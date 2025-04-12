@@ -22,10 +22,15 @@ func GeneratePDF(text, outputPath string) error {
 		return err
 	}
 
-	lines := wrapText(pdf, text, 500)
-	for _, line := range lines {
-		pdf.Cell(nil, line)
-		pdf.Br(16) // line height in mm
+	paragraphs := strings.Split(text, "\n")
+	for _, para := range paragraphs {
+		lines := wrapText(pdf, para, 500) // 120mm width
+		for _, line := range lines {
+			pdf.Cell(nil, line)
+			pdf.Br(16)
+		}
+		// extra space between paragraphs
+		pdf.Br(8)
 	}
 	return pdf.WritePdf(outputPath)
 }

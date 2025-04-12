@@ -64,5 +64,5 @@ func (u *Usecase) Disburse(ctx context.Context, req *dto.DisburseRequest) helper
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to update loan", nil)
 	}
 
-	return helper.ResponseSuccess(http.StatusOK, "Loan disbursed successfully")
+	return helper.ResponseSuccess(http.StatusOK, dto.DisburseSuccessResponse)
 }

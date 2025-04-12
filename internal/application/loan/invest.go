@@ -39,27 +39,36 @@ func (u *Usecase) Invest(ctx context.Context, req *dto.InvestRequest) helper.JSO
 		loanData.Status = "ready_to_disbursed"
 	}
 
+	investment := &loan_investor.LoanInvestor{
+		LoanID:     loanData.ID,
+		InvestorID: investorData.ID,
+		Amount:     req.Amount,
+		Rate:       loanData.Rate,
+		ROI:        (req.Amount * loanData.Rate / 100),
+	}
+
 	timestamp := time.Now().Format("20060102150405")
-	text := fmt.Sprintf("Dear Mr/Mrs. %s, Your money successfully invested on loan %d,\nplease read this agreement for details.", investorData.Name, *loanData.ID)
+	text := fmt.Sprintf("Dear Mr/Mrs. %s, Your money successfully invested on loan %d, please read this agreement for details.\n", investorData.Name, *loanData.ID)
+	text += fmt.Sprintf("Total Amount: %d\n", int64(req.Amount))
+	text += fmt.Sprintf("Rate: %d%%\n", int64(loanData.Rate))
+	text += fmt.Sprintf("Return on Investment (ROI): %d\n", int64(investment.ROI))
+	text += "Thank you for your trust in us."
 	savePath := fmt.Sprintf("./uploads/%s_%d_%d_%s_%s.pdf", timestamp, *loanData.ID, *req.InvestorID, "invest", "agreement_letter")
 	err = pdf.GeneratePDF(text, savePath)
 	if err != nil {
 		l.Error("failed to generate agreement letter", zap.Error(err))
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to generate agreement letter", nil)
 	}
-	loanData.LoanInvestors = append(loanData.LoanInvestors, &loan_investor.LoanInvestor{
-		LoanID:          loanData.ID,
-		InvestorID:      investorData.ID,
-		Amount:          req.Amount,
-		Rate:            loanData.Rate,
-		ROI:             req.Amount + (req.Amount * loanData.Rate / 100),
-		AgreementLetter: helper.ToPointer(strings.Replace(savePath, "./", "", 1)),
-	})
+
+	investment.AgreementLetter = helper.ToPointer(strings.Replace(savePath, "./", "", 1))
+	loanData.LoanInvestors = append(loanData.LoanInvestors, investment)
 
 	_, err = u.LoanRepository.Update(loanData)
 	if err != nil {
 		l.Error("failed to update loan", zap.Error(err))
 		return helper.ResponseFailed(http.StatusInternalServerError, "failed to update loan", nil)
 	}
-	return helper.ResponseSuccess(http.StatusOK, loanData)
+	res := &dto.InvestResponse{}
+	res = res.ToResponse(u.Config, *investment.AgreementLetter)
+	return helper.ResponseSuccess(http.StatusOK, res)
 }
